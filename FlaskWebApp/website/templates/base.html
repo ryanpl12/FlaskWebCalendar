@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../static/isaiah.css"/>
+    <title>{% block title %}Home{% endblock %}</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="/login">| Login |</a>
+          <a class="nav-item nav-link" href="/sign-up">| Sign Up |</a>
+          <a class="nav-item nav-link" href="/logout">| Logout |</a>
+          <a class="nav-item nav-link" href="/random-event">| Let's Pick |</a>
+          <a class="nav-item nav-link" href="/create-poll">| Let's Vote |</a> <!-- New link for Create Poll -->
+          <a class="nav-item nav-link" href="/view-polls">| View Polls |</a> <!-- Link to view polls -->
+          <a class="nav-item nav-link" href="/">| Home |</a>
+          <a class="nav-item nav-link" href="/discussions">| Discussions |</a>
+        </div>
+      </div>
+    </nav>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissable fade show" role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+      {% block content %}
+      {% endblock %}
+  
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- FullCalendar.js JavaScript -->
+    <script src="{{ url_for('static', filename='node_modules/@fullcalendar/core/index.global.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='node_modules/@fullcalendar/daygrid/index.global.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='node_modules/@fullcalendar/interaction/index.global.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='node_modules/@fullcalendar/timegrid/index.global.min.js') }}"></script>
+  </body>
+</html>

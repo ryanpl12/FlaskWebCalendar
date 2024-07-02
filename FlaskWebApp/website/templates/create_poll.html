@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        color: #333;
+    }
+    .container {
+        width: 80%;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border-radius: 8px;
+    }
+    h1 {
+        color: #5a4fcf;
+        text-align: center;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+        padding: 20px;
+    }
+    label {
+        font-size: 1.1em;
+    }
+    input[type="text"] {
+        width: calc(100% - 2px); /* Adjust width to fit container */
+        padding: 10px;
+        margin-bottom: 5px; /* Provide margin for a cleaner look */
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        font-size: 1em;
+    }
+    button {
+        padding: 10px 20px;
+        color: white;
+        background-color: #5a4fcf;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1em;
+        margin-top: 10px; /* Additional margin for better spacing */
+    }
+    button:hover {
+        background-color: #483db7;
+    }
+    .option-container {
+        width: 100%;
+    }
+</style>
+
+<div class="container">
+    <h1>Create a New Poll</h1>
+    <form id="pollForm" action="/create-poll" method="post">
+        <label for="question">Question:</label><br>
+        <input type="text" id="question" name="question" required><br>
+        <label for="option1">Option 1:</label><br>
+        <input type="text" id="option1" name="option1" required><br>
+        <label for="option2">Option 2:</label><br>
+        <input type="text" id="option2" name="option2" required><br>
+        <div id="dynamicOptions"></div> <!-- Container for dynamic options -->
+        <button type="button" onclick="addOption()">Add Option</button>
+        <button type="submit">Create Poll</button>
+    </form>
+</div>
+
+<script>
+function addOption() {
+    var dynamicOptions = document.getElementById('dynamicOptions');
+    var optionNumber = dynamicOptions.childElementCount + 3; // Start numbering from 3
+
+    var container = document.createElement('div');
+    container.classList.add('option-container');
+
+    var label = document.createElement('label');
+    label.setAttribute('for', 'option' + optionNumber);
+    label.textContent = 'Option ' + optionNumber + ':';
+    container.appendChild(label);
+
+    var br = document.createElement('br'); // Add line break
+    container.appendChild(br);
+
+    var input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    input.setAttribute('id', 'option' + optionNumber);
+    input.setAttribute('name', 'option' + optionNumber);
+    container.appendChild(input);
+
+    dynamicOptions.appendChild(container);
+}
+</script>
+{% endblock %}

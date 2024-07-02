@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}View Polls{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        color: #333;
+    }
+    .container {
+        width: 80%;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border-radius: 8px;
+    }
+    h1 {
+        color: #5a4fcf;
+        text-align: center;
+    }
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    li {
+        background-color: #eee;
+        margin-top: 5px;
+        padding: 10px;
+        border-radius: 4px;
+    }
+    a {
+        text-decoration: none;
+        color: #5a4fcf;
+    }
+    a:hover {
+        color: #483db7;
+    }
+    p {
+        text-align: center;
+        color: #888;
+    }
+</style>
+
+<div class="container">
+    <h1>View Polls</h1>
+    {% if polls %}
+    <ul>
+        {% for poll in polls %}
+        <li>
+            <a href="{{ url_for('views.show_poll', poll_id=poll.id) }}">{{ poll.question }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No polls available.</p>
+    {% endif %}
+</div>
+{% endblock %}
